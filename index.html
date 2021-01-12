@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<title>calculadora</title>
+	<center>	<h1>Modelos del lote economico</h1> </center>
+
+</head>
+<body>
+	<div align="center">
+		Introduzca la informacion solicitada para obtener el costo total optimo
+	</div>
+	<p align="center">
+	<br><br>
+	<input type="text" placeholder="costo unitario por iteam (C)" id="C"><br><br>
+	<input type="text" placeholder="Demanda total anual (D)" id="D"><br><br>
+	<input type="text" placeholder="costo de ordenar" id="co"><br><br>
+	<input type="text" placeholder="tasa de interes anual" id="ts"><br><br>
+	<input type="text" placeholder="Dias laborales de la empresa" id="dl"><br><br>
+	<input type="button" name="" value="Buscar cantidad optima a ordenar y costo total anual " onclick="eoq();">
+	</p>
+<script type="text/javascript">
+	function eoq() {
+
+		var D=parseInt(document.getElementById('D').value);
+		var co=parseInt(document.getElementById('co').value);
+		var C=parseInt(document.getElementById('C').value);
+		var ts=parseInt(document.getElementById('ts').value);
+		var dl=parseInt(document.getElementById('dl').value);
+		var Qop;
+		var ch;
+		var tasa;
+		var costTotalAnualInvenoptimo;
+		var costotpedidos;
+		tasa=ts/100;
+		ch=C*tasa;
+		Qop=Math.sqrt((2*D*co)/ch)
+		costTotalAnualInvenoptimo=(Qop/2)*ch+(D/Qop)*co;
+		costotpedidos=costTotalAnualInvenoptimo+(C*D)
+		alert("la cantidad optima a ordenar son: "+Qop.toFixed(3)+" iteams");
+		alert("el costo anual de inventario es: $"+costTotalAnualInvenoptimo.toFixed(3));
+		alert("el costo total de pedidos para un año: $"+costotpedidos.toFixed(3));
+		alert("Periodo de tiempo: "+Math.round((Qop/D)*52*dl)+" dias");
+	}
+</script>
+<center>	<h2>Modelos del lote economico con descuentos en cantidades</h2> </center>
+</body>
+</html>

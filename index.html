@@ -3,7 +3,7 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="main.css">
 	<title>calculadora</title>
-	<center>	<h1>Modelos del lote economico</h1> </center>
+	<center>	<h1>Modelos del lote economico con y sin descuento</h1> </center>
 
 </head>
 <body>
@@ -12,10 +12,10 @@
 	</div>
 	<p align="center">
 	<br><br>
-	<input type="text" placeholder="costo unitario por iteam (C)" id="C"><br><br>
+	<input type="text" placeholder="costo unitario por item (C)" id="C"><br><br>
 	<input type="text" placeholder="Demanda total anual (D)" id="D"><br><br>
-	<input type="text" placeholder="costo de ordenar" id="co"><br><br>
-	<input type="text" placeholder="tasa de interes anual" id="ts"><br><br>
+	<input type="text" placeholder="costo de ordenar (Co)" id="co"><br><br>
+	<input type="text" placeholder="tasa de interes anual (H)" id="ts"><br><br>
 	<input type="text" placeholder="Dias laborales de la empresa" id="dl"><br><br>
 	<input type="button" name="" value="Buscar cantidad optima a ordenar y costo total anual " onclick="eoq();">
 	</p>
@@ -37,12 +37,31 @@
 		Qop=Math.sqrt((2*D*co)/ch)
 		costTotalAnualInvenoptimo=(Qop/2)*ch+(D/Qop)*co;
 		costotpedidos=costTotalAnualInvenoptimo+(C*D)
-		alert("la cantidad optima a ordenar son: "+Qop.toFixed(3)+" iteams");
+		alert("la cantidad optima a ordenar son: "+Qop.toFixed(3)+" items");
 		alert("el costo anual de inventario es: $"+costTotalAnualInvenoptimo.toFixed(3));
 		alert("el costo total de pedidos para un año: $"+costotpedidos.toFixed(3));
 		alert("Periodo de tiempo: "+Math.round((Qop/D)*52*dl)+" dias");
-	}
+		var mensaje;
+    	var opcion = confirm("¿Existe algun descuento?");
+    	if (opcion == true) {
+      	   var Porcentaje = prompt("Porcentaje de descuento:");
+   		   var unidades = prompt("¿A partir de cuentas unidades se da el descuento?");
+   		   var nuevoprecio=C-(C*(parseInt(Porcentaje)/100));
+   		   var nuevocat=costotpedidos*(parseInt(Porcentaje)/100);
+   		   var nuevoct=(nuevoprecio*D)+nuevocat;
+   		   var ahorro=costotpedidos-nuevoct;
+   		   var tiempoorden=(unidades/D)*365;
+   		   alert("El precio por unidad con descuento es: $"+nuevoprecio);
+   		   alert("El costo anual del inventario es: $"+nuevocat);
+   		   alert("El costo total de pedidos para un año es: $"+nuevoct);
+   		   alert("El ahorro sera de: $"+ahorro);
+   		   alert("tendra que ordenar cada: "+tiempoorden+" dias con el descuento dado");
+
+		} else {
+	  	  mensaje = "¡Gracias por usar el programa! :)";
+		}
+		document.getElementById("ejemplo").innerHTML = mensaje;
+		}
 </script>
-<center>	<h2>Modelos del lote economico con descuentos en cantidades</h2> </center>
 </body>
 </html>
